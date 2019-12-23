@@ -32,22 +32,64 @@ typedef struct {
 static const command step[] = {
 	// Setup controller
 	{ DELAY,    250 },
-	{ TRIGGERS,      5 },
+	{ TRIGGERS,   5 },
 	{ DELAY,    150 },
-	{ TRIGGERS,      5 },
-	{ DELAY,    150 },
-	{ A,      5 },
-	{ DELAY,    250 },
+	{ TRIGGERS,   5 },
+	{ DELAY,      5 },
+	{ DELAY,      5 },
+	{ DELAY,      5 },
 
 	// loop wat
-	{ A,          5 }, // enter cave
-	{ DELAY,     30 },
-	{ A,         10 }, // enter match
-	{ DELAY,    120 }, // 
-	{ HOME,       5 }, // return home
-	{ DELAY,     40 }, // 
-	{ DOWN,       5 }, // 
-	{ DELAY,      5 },
+	{ A,          5 }, // enter dialogue
+	{ DELAY,     60 },	
+	{ B,          5 }, // what do u want to do?
+	{ DELAY,     60 },
+	{ DOWN,       5 }, // select draw a lottery
+	{ DELAY,      5 }, // 
+	{ A,          5 }, // draw
+	{ DELAY,     60 }, // wait
+	{ B,          5 }, // connect id
+	{ DELAY,     60 }, // wait2
+	{ B,		  5 }, // if same id
+	{ DELAY,	 60 }, // wait3
+	{ B,		  5 }, // get reward record?
+	{ DELAY,    120 }, // wait4
+	{ A,		  5 }, // yes
+	{ DELAY,	120 }, // wait5
+	{ B,		  5 }, // record ok
+	{ DELAY,	 60 }, // wait6
+	{ B,		  5 }, // start draw
+	{ DELAY,	 60 }, // wait7
+	{ B,		  5 }, // ...
+	{ DELAY,	 70 }, // wait8
+	{ B,		  5 }, // the number
+	{ DELAY,	 60 }, // wait9
+	{ B,		  5 }, // find id
+	{ DELAY,	150 }, // wait10
+	{ B,		  5 }, // congratulation
+	{ DELAY,	 60 }, // wait11
+	{ B,		  5 }, // find someone
+	{ DELAY,	 60 }, // wait12
+	{ B,		  5 }, // same id
+	{ DELAY,	 60 }, // wait13
+	{ B,		  5 }, // id number
+	{ DELAY,	 60 }, // wait14
+	{ B,		  5 }, // give s
+	{ DELAY,	 60 }, // wait15
+	{ B,		  5 }, // reward thing
+	{ DELAY,	150 }, // wait16
+	{ B,		  5 }, // got it
+	{ DELAY,	 60 }, // wait17
+	{ B,		  5 }, // put in
+	{ DELAY,	 60 }, // wait18
+	{ B,		  5 }, // see you
+	{ DELAY,	 60 }, // wait19
+
+
+ 	{ HOME, 	  5 }, // return home
+	{ DELAY,	 40 }, // 
+	{ DOWN, 	  5 }, // 
+	{ DELAY,	  5 },
 	{ RIGHT,     20 }, // select settings
 	{ DELAY,      5 }, // 
 	{ A,          5 }, // enter settings
@@ -64,16 +106,16 @@ static const command step[] = {
 	{ DELAY,      5 }, // 
 	{ A,          5 }, // enter change
 	{ DELAY,     50 },
-	//{ DOWN,       5 }, // 2018 
-	//{ DELAY,     20 }, // 
-	//{ RIGHT,     25 }, // select ok 
-	//{ DELAY,     30 },
-	//{ A,          5 }, // change
-	//{ DELAY,     20 }, // 
-	//{ A,          5 }, // enter change again
-	//{ DELAY,     30 },
-	//{ LEFT,      25 }, // select year 
-	//{ DELAY,     20 }, // 
+	{ DOWN,       5 }, // 2018 
+	{ DELAY,      5 }, // 
+	{ RIGHT,     25 }, // select ok 
+	{ DELAY,      5 },
+	{ A,          5 }, // change
+	{ DELAY,     20 }, // 
+	{ A,          5 }, // enter change again
+	{ DELAY,     20 },
+	{ LEFT,      25 }, // select year 
+	{ DELAY,     20 }, // 
 	{ UP,         5 }, // 2019  
 	{ DELAY,      5 },
 	{ RIGHT,     25 }, // select ok 
@@ -83,18 +125,7 @@ static const command step[] = {
 	{ HOME,       5 }, // return home
 	{ DELAY,     20 }, // 
 	{ A,          5 }, // return game
-	{ DELAY,     30 },
-	{ B,          5 }, // quit?
-	{ DELAY,     50 }, // 
-	{ A,          5 }, // yes quit 
-	{ DELAY,    100 },
-	{ A,          5 }, // get wat 
-	{ DELAY,     30 },
-	{ A,          5 }, // quick dialogue
-	{ DELAY,     50 },	
-	{ A,          5 }, // got it 
-	{ DELAY,     50 }
-	
+	{ DELAY,     30 }	
 };
 
 // Main entry point.
@@ -306,7 +337,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 
 		case PROCESS:
 
-			switch (step[bufindex].button)
+			switch (step[bufindex].opt)
 			{
 
 				case UP:
