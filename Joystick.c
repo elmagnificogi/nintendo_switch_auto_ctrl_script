@@ -1,21 +1,5 @@
 /*
-Nintendo Switch Fightstick - Proof-of-Concept
-
-Based on the LUFA library's Low-Level Joystick Demo
-	(C) Dean Camera
-Based on the HORI's Pokken Tournament Pro Pad design
-	(C) HORI
-
-This project implements a modified version of HORI's Pokken Tournament Pro Pad
-USB descriptors to allow for the creation of custom controllers for the
-Nintendo Switch. This also works to a limited degree on the PS3.
-
-Since System Update v3.0.0, the Nintendo Switch recognizes the Pokken
-Tournament Pro Pad as a Pro Controller. Physical design limitations prevent
-the Pokken Controller from functioning at the same level as the Pro
-Controller. However, by default most of the descriptors are there, with the
-exception of Home and Capture. Descriptor modification allows us to unlock
-these buttons for our use.
+the file is the frame of auto script
 */
 
 #include "Joystick.h"
@@ -31,14 +15,17 @@ typedef enum {
 	B,
 	L,
 	R,
+	plus,
+	minus,
 	HOME,
-	THROW,
+	CAPTURE,
 	DELAY,
-	TRIGGERS
-} Buttons_t;
+	TRIGGERS,
+	THROW
+} options;
 
 typedef struct {
-	Buttons_t button;
+	options opt;
 	uint16_t duration;
 } command; 
 
@@ -114,13 +101,16 @@ static const command step[] = {
 int main(void) {
 	// We'll start by performing hardware and peripheral setup.
 	SetupHardware();
+	
 	// We'll then enable global interrupts for our use.
 	GlobalInterruptEnable();
+	
 	// Once that's done, we'll enter an infinite loop.
 	for (;;)
 	{
 		// We need to run our task to process and deliver data for our IN and OUT endpoints.
 		HID_Task();
+		
 		// We also need to run the main USB management task.
 		USB_USBTask();
 	}
@@ -138,14 +128,15 @@ void SetupHardware(void) {
 
 	#ifdef ALERT_WHEN_DONE
 	// Both PORTD and PORTB will be used for the optional LED flashing and buzzer.
-	#warning LED and Buzzer functionality enabled. All pins on both PORTB and \
-PORTD will toggle when printing is done.
-	DDRD  = 0xFF; //Teensy uses PORTD
-	PORTD =  0x0;
-                  //We'll just flash all pins on both ports since the UNO R3
-	DDRB  = 0xFF; //uses PORTB. Micro can use either or, but both give us 2 LEDs
-	PORTB =  0x0; //The ATmega328P on the UNO will be resetting, so unplug it?
+	// warning LED and Buzzer functionality enabled. All pins on both PORTB and
+	// PORTD will toggle when printing is done.
+		DDRD  = 0xFF; //Teensy uses PORTD
+		PORTD =  0x0;
+	                  //We'll just flash all pins on both ports since the UNO R3
+		DDRB  = 0xFF; //uses PORTB. Micro can use either or, but both give us 2 LEDs
+		PORTB =  0x0; //The ATmega328P on the UNO will be resetting, so unplug it?
 	#endif
+	
 	// The USB stack should be initialized last.
 	USB_Init();
 }
