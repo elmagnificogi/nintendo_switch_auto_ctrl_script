@@ -55,35 +55,35 @@ static const command step[] = {
 	{ B,		  5 }, // get reward record?
 	{ DELAY,    120 }, // wait4
 	{ A,		  5 }, // yes
-	{ DELAY,	120 }, // wait5
+	{ DELAY,	130 }, // wait5
 	{ B,		  5 }, // record ok
-	{ DELAY,	 60 }, // wait6
+	{ DELAY,	 65 }, // wait6
 	{ B,		  5 }, // start draw
-	{ DELAY,	 60 }, // wait7
+	{ DELAY,	 65 }, // wait7
 	{ B,		  5 }, // ...
 	{ DELAY,	 70 }, // wait8
 	{ B,		  5 }, // the number
-	{ DELAY,	 60 }, // wait9
+	{ DELAY,	 65 }, // wait9
 	{ B,		  5 }, // find id
-	{ DELAY,	150 }, // wait10
+	{ DELAY,	170 }, // wait10
 	{ B,		  5 }, // congratulation
-	{ DELAY,	 60 }, // wait11
+	{ DELAY,	 65 }, // wait11
 	{ B,		  5 }, // find someone
-	{ DELAY,	 60 }, // wait12
+	{ DELAY,	 65 }, // wait12
 	{ B,		  5 }, // same id
-	{ DELAY,	 60 }, // wait13
+	{ DELAY,	 65 }, // wait13
 	{ B,		  5 }, // id number
-	{ DELAY,	 60 }, // wait14
+	{ DELAY,	 65 }, // wait14
 	{ B,		  5 }, // give s
-	{ DELAY,	 60 }, // wait15
+	{ DELAY,	 65 }, // wait15
 	{ B,		  5 }, // reward thing
-	{ DELAY,	150 }, // wait16
+	{ DELAY,	155 }, // wait16
 	{ B,		  5 }, // got it
-	{ DELAY,	 60 }, // wait17
+	{ DELAY,	 65 }, // wait17
 	{ B,		  5 }, // put in
-	{ DELAY,	 60 }, // wait18
+	{ DELAY,	 65 }, // wait18
 	{ B,		  5 }, // see you
-	{ DELAY,	 60 }, // wait19
+	{ DELAY,	 65 }, // wait19
 
 
  	{ HOME, 	  5 }, // return home
@@ -125,7 +125,7 @@ static const command step[] = {
 	{ HOME,       5 }, // return home
 	{ DELAY,     20 }, // 
 	{ A,          5 }, // return game
-	{ DELAY,     30 }	
+	{ DELAY,     40 }	
 };
 
 // Main entry point.
