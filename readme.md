@@ -71,17 +71,17 @@ Teensy v2.0 淘宝一下，包邮以后基本都是32+，所以买了一个。
 
 但是这个东西太老了，它本身是mini-usb，接了线以后是一个usb-a，如果没有采集卡就必须要转一个typec，找转接头的时候眼瞎了，找了个25的，实际上还有更便宜的
 
-![SMMS](https://i.loli.net/2019/12/15/f6ACarnZyVDgMp9.png)
+![](https://i.loli.net/2019/12/15/f6ACarnZyVDgMp9.png)
 
 
 
 这个头才9.8，有一个这个就能用typec直接接到板子上了，或者是typec直接转mini-usb的也行
 
-![SMMS](https://i.loli.net/2019/12/15/iekKITathnXSfb8.png)
+![](https://i.loli.net/2019/12/15/iekKITathnXSfb8.png)
 
 全家照：
 
-![SMMS](https://i.loli.net/2019/12/15/HX4OIL1r2pZSD3j.png)
+![](https://i.loli.net/2019/12/15/HX4OIL1r2pZSD3j.png)
 
 这样就能无论是接采集卡然后usb-a直连，还是用掌机模式typec直连都能用了。
 

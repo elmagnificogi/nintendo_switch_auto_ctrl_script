@@ -40,25 +40,15 @@ static const command step[] = {
 	{ DELAY,      5 },
 
 	{ A,          5 }, // enter change
-	{ DELAY,     10 },
-	{ LEFT,      25 }, // select year 
+	{ DELAY,      8 },
+	{ LEFT,      17 }, // select day 
 	{ DELAY,      5 }, // 	
-	{ DOWN,       5 }, // 2018 
-	{ DELAY,      5 }, // 
-	{ RIGHT,     25 }, // select ok 
-	{ DELAY,      5 },
-	{ A,          5 }, // change quit
-	{ DELAY,     10 }, // 
-	{ A,          5 }, // enter change again
-	{ DELAY,     10 },
-	{ LEFT,      25 }, // select year 
-	{ DELAY,      5 }, // 
 	{ UP,         5 }, // 2019  
 	{ DELAY,      5 },
-	{ RIGHT,     25 }, // select ok 
+	{ RIGHT,     17 }, // select ok 
 	{ DELAY,      5 }, // 
 	{ A,          5 }, // complete change 
-	{ DELAY,     10 }  // 	
+	{ DELAY,      8 }  // 	
 };
 
 // Main entry point.
@@ -196,7 +186,7 @@ int ypos = 0;
 int bufindex = 0;
 int duration_count = 0;
 int portsval = 0;
-int run_times = 1000;
+int run_times = 516;
 
 // Prepare the next report for the host.
 void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
