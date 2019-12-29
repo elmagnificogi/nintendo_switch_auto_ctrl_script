@@ -3,6 +3,7 @@ the file is the frame of auto script
 */
 
 #include "Joystick.h"
+#include <math>
 
 typedef enum {
 	UP,
@@ -21,7 +22,8 @@ typedef enum {
 	CAPTURE,
 	DELAY,
 	TRIGGERS,
-	THROW
+	THROW,
+	RANDRD
 } options;
 
 typedef struct {
@@ -31,17 +33,106 @@ typedef struct {
 
 static const command step[] = {
 	// Setup controller
-	{ DELAY,    250 },
-	{ TRIGGERS,      5 },
+	{ DELAY,    500 },
+	{ TRIGGERS,   5 },
 	{ DELAY,    150 },
-	{ TRIGGERS,      5 },
+	{ TRIGGERS,   5 },
 	{ DELAY,    150 },
-	{ A,      5 },
+	{ DELAY,      5 },
 	{ DELAY,    250 },
 
-	// loop wat
-	{ A,          5 }, // enter cave
+
+	// first change year to 2000
+	{ DOWN,       5 }, // 
+	{ DELAY,      5 },
+	{ RIGHT,     20 }, // select settings
+	{ DELAY,      5 }, // 
+	{ A,          5 }, // enter settings
+	{ DELAY,     50 },
+	{ DOWN,      70 }, // select console
+	{ DELAY,      5 }, // 	
+	{ RIGHT,      5 }, // move to the tab 
+	{ DELAY,      5 },
+	{ DOWN,      20 }, // select date and time 
+	{ DELAY,      5 }, // 
+	{ A,          5 }, // enter change time
+	{ DELAY,     20 },
+	{ DOWN,      20 }, // selec cur time 
+	{ DELAY,      5 }, // 
+	{ A,          5 }, // enter change
+	{ DELAY,     50 },
+	{ DOWN,      50 }, // 2000 
+	{ DELAY,     20 }, // 
+	{ RIGHT,     25 }, // select ok 
 	{ DELAY,     30 },
+	{ A,          5 }, // change
+	{ DELAY,     20 }, // 
+	{ HOME,       5 }, // return home
+	{ DELAY,     50 }, // 
+
+	// enter game
+	{ A,          5 }, // enter game
+	{ DELAY,     50 },
+	{ A,         10 }, // enter user
+	{ DELAY,    400 }, // 
+	{ TRIGGERS,   5 },
+	{ DELAY,    150 },	
+	{ TRIGGERS,   5 },
+	{ DELAY,	150 },
+	{ A,		  5 }, // game in
+	{ DELAY,	500 }, // 
+
+	// loop wat1
+	{ A,          5 }, // enter cave
+	{ DELAY,     80 },
+	{ A,          5 }, // diague
+	{ DELAY,     80 },	
+	{ A,          5 }, // get 2000w
+	{ DELAY,     80 },
+	{ A,         10 }, // enter match
+	{ DELAY,    150 }, // 
+	{ HOME,       5 }, // return home
+	{ DELAY,     40 }, // 
+	{ DOWN,       5 }, // 
+	{ DELAY,      5 },
+	{ RIGHT,     20 }, // select settings
+	{ DELAY,      5 }, // 
+	{ A,          5 }, // enter settings
+	{ DELAY,     50 },
+	{ DOWN,      70 }, // select console
+	{ DELAY,      5 }, // 	
+	{ RIGHT,      5 }, // move to the tab 
+	{ DELAY,      5 },
+	{ DOWN,      20 }, // select date and time 
+	{ DELAY,      5 }, // 
+	{ A,          5 }, // enter change time
+	{ DELAY,     20 },
+	{ DOWN,      20 }, // selec cur time 
+	{ DELAY,      5 }, // 
+	{ A,          5 }, // enter change
+	{ DELAY,     50 },
+	{ UP,         5 }, // 2019  
+	{ DELAY,      5 },
+	{ RIGHT,     25 }, // select ok 
+	{ DELAY,      5 }, // 
+	{ A,          5 }, // complete change 
+	{ DELAY,     30 },
+	{ HOME,       5 }, // return home
+	{ DELAY,     40 }, // 
+	{ A,          5 }, // return game
+	{ DELAY,     30 },
+	{ B,          5 }, // quit?
+	{ DELAY,     50 }, // 
+	{ A,          5 }, // yes quit 
+	{ DELAY,    150 },
+
+	// loop wat2
+	{ A,          5 }, // get wat 
+	{ DELAY,     80 },
+	{ A,          5 }, // quick dialogue
+	{ DELAY,     80 },	
+	{ A,          5 }, // got it 
+	{ DELAY,     80 },
 	{ A,         10 }, // enter match
 	{ DELAY,    120 }, // 
 	{ HOME,       5 }, // return home
@@ -64,16 +155,6 @@ static const command step[] = {
 	{ DELAY,      5 }, // 
 	{ A,          5 }, // enter change
 	{ DELAY,     50 },
-	//{ DOWN,       5 }, // 2018 
-	//{ DELAY,     20 }, // 
-	//{ RIGHT,     25 }, // select ok 
-	//{ DELAY,     30 },
-	//{ A,          5 }, // change
-	//{ DELAY,     20 }, // 
-	//{ A,          5 }, // enter change again
-	//{ DELAY,     30 },
-	//{ LEFT,      25 }, // select year 
-	//{ DELAY,     20 }, // 
 	{ UP,         5 }, // 2019  
 	{ DELAY,      5 },
 	{ RIGHT,     25 }, // select ok 
@@ -81,20 +162,116 @@ static const command step[] = {
 	{ A,          5 }, // complete change 
 	{ DELAY,     30 },
 	{ HOME,       5 }, // return home
-	{ DELAY,     20 }, // 
+	{ DELAY,     40 }, // 
 	{ A,          5 }, // return game
 	{ DELAY,     30 },
 	{ B,          5 }, // quit?
 	{ DELAY,     50 }, // 
 	{ A,          5 }, // yes quit 
-	{ DELAY,    100 },
+	{ DELAY,    250 },
+
+	// loop wat3
 	{ A,          5 }, // get wat 
-	{ DELAY,     30 },
+	{ DELAY,    100 },
 	{ A,          5 }, // quick dialogue
-	{ DELAY,     50 },	
+	{ DELAY,    100 },	
 	{ A,          5 }, // got it 
-	{ DELAY,     50 }
+	{ DELAY,    100 },
+	{ A,         10 }, // enter match
+	{ DELAY,    120 }, // 
+	{ HOME,       5 }, // return home
+	{ DELAY,     40 }, // 
+	{ DOWN,       5 }, // 
+	{ DELAY,      5 },
+	{ RIGHT,     20 }, // select settings
+	{ DELAY,      5 }, // 
+	{ A,          5 }, // enter settings
+	{ DELAY,     50 },
+	{ DOWN,      70 }, // select console
+	{ DELAY,      5 }, // 	
+	{ RIGHT,      5 }, // move to the tab 
+	{ DELAY,      5 },
+	{ DOWN,      20 }, // select date and time 
+	{ DELAY,      5 }, // 
+	{ A,          5 }, // enter change time
+	{ DELAY,     20 },
+	{ DOWN,      20 }, // selec cur time 
+	{ DELAY,      5 }, // 
+	{ A,          5 }, // enter change
+	{ DELAY,     50 },
+	{ UP,         5 }, // 2019  
+	{ DELAY,      5 },
+	{ RIGHT,     25 }, // select ok 
+	{ DELAY,      5 }, // 
+	{ A,          5 }, // complete change 
+	{ DELAY,     30 },
+	{ HOME,       5 }, // return home
+	{ DELAY,     40 }, // 
+	{ A,          5 }, // return game
+	{ DELAY,     30 },
+	{ B,          5 }, // quit?
+	{ DELAY,     50 }, // 
+	{ A,          5 }, // yes quit 
+	{ DELAY,    300 },
+
+	// share 
+	{ Y,          5 }, // enter Y
+	{ DELAY,     50 },
+	{ plus,       5 }, // connect
+	{ DELAY,   1200 }, // 
+	{ A,          5 }, // confirm
+	{ DELAY,    100 }, // 
+	{ B,		  5 }, // return game
+	{ DELAY,	 50 }, // 
+
+
+	{ A,          5 }, // enter cave
+	{ DELAY,    200 },
+	{ A,          5 }, // get 2000w
+	{ DELAY,    200 },
+		
+	{ A,          5 }, // confirm
+	{ DELAY,    800 },		
+
+	{ plus,       5 }, // set password
+	{ DELAY,	 50 }, // 
+	{ A,		  5 }, // enter 1
+	{ DELAY,	  5 },
+	{ A,		  5 }, // enter 1
+	{ DELAY,	  5 },
+	{ A,		  5 }, // enter 1
+	{ DELAY,	  5 },
+	{ RANDRD,     3 }, //random opt in right and down
+	{ DELAY,	  5 },
+	{ A,		  5 }, // enter 1
+	{ DELAY,	  5 },
+	{ plus, 	  5 }, // confirm
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // use the password? yes
+	{ DELAY,	300 },
+	{ A,		  5 }, // enter match
+	{ DELAY,	800 },
+	{ UP,         5 }, // 
+	{ DELAY,   3000 },
+	{ A,          5 }, // ready 
+	{ DELAY,     50 },
+	{ A,          5 }, // start
+	{ DELAY,     50 },
+	{ A,          5 }, // not enough?
+	{ DELAY,     50 },
+	{ A,          5 }, // sure to start?
+	{ DELAY,     50 },
+	{ A,          5 }, // yes
+	{ DELAY,     50 },	
+	{ A,		  5 }, // yes
+	{ DELAY,   1200 },
 	
+	{ HOME, 	  5 }, // return home
+	{ DELAY,	 40 }, // 
+	{ X, 	      5 }, // close game
+	{ DELAY,	 30 },
+	{ A,	     20 }, // select settings
+	{ DELAY,	400 } // 	
 };
 
 // Main entry point.
@@ -306,7 +483,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 
 		case PROCESS:
 
-			switch (step[bufindex].button)
+			switch (step[bufindex].opt)
 			{
 
 				case UP:
@@ -333,8 +510,27 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 					ReportData->Button |= SWITCH_B;
 					break;
 
+				case X:
+					ReportData->Button |= SWITCH_X;
+					break;
+				
+				case Y:
+					ReportData->Button |= SWITCH_Y;
+					break;
+				case L:
+					ReportData->Button |= SWITCH_L;
+					break;
+				
 				case R:
 					ReportData->Button |= SWITCH_R;
+					break;
+				
+				case plus:
+					ReportData->Button |= SWITCH_PLUS;
+					break;
+
+				case minus:
+					ReportData->Button |= SWITCH_MINUS;
 					break;
 
 				case HOME:
@@ -349,6 +545,18 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				case TRIGGERS:
 					ReportData->Button |= SWITCH_L | SWITCH_R;
 					break;
+				
+				case RANDRD:
+					if(((int)(rand()*100)) % 2==0)
+					{
+						ReportData->LX = STICK_MAX;
+					}
+					else
+					{
+					
+						ReportData->LY = STICK_MIN;		
+					}
+					break;				
 
 				default:
 					ReportData->LX = STICK_CENTER;
