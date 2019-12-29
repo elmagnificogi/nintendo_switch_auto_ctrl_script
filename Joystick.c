@@ -130,7 +130,7 @@ static const command step[] = {
 	{ A,          5 }, // got it 
 	{ DELAY,     80 },
 	{ A,         10 }, // enter match
-	{ DELAY,    120 }, // 
+	{ DELAY,    200 }, // 
 	{ HOME,       5 }, // return home
 	{ DELAY,     40 }, // 
 	{ DOWN,       5 }, // 
@@ -172,9 +172,9 @@ static const command step[] = {
 	{ A,          5 }, // quick dialogue
 	{ DELAY,    100 },	
 	{ A,          5 }, // got it 
-	{ DELAY,    100 },
+	{ DELAY,     80 },
 	{ A,         10 }, // enter match
-	{ DELAY,    120 }, // 
+	{ DELAY,    200 }, // 
 	{ HOME,       5 }, // return home
 	{ DELAY,     40 }, // 
 	{ DOWN,       5 }, // 
@@ -225,7 +225,6 @@ static const command step[] = {
 	{ DELAY,    200 },
 	{ A,          5 }, // get 2000w
 	{ DELAY,    200 },
-		
 	{ A,          5 }, // confirm
 	{ DELAY,    800 },		
 
