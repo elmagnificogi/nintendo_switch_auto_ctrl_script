@@ -85,10 +85,6 @@ static const command step[] = {
 	// loop wat1
 	{ A,          5 }, // enter cave
 	{ DELAY,     80 },
-	{ A,          5 }, // diague
-	{ DELAY,     80 },	
-	{ A,          5 }, // get 2000w
-	{ DELAY,     80 },
 	{ A,         10 }, // enter match
 	{ DELAY,    150 }, // 
 	{ HOME,       5 }, // return home
@@ -408,6 +404,7 @@ int ypos = 0;
 int bufindex = 0;
 int duration_count = 0;
 int portsval = 0;
+int run_times = 0;
 
 // Prepare the next report for the host.
 void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
@@ -547,7 +544,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 					break;
 				
 				case RANDRD:
-					if(((int)(rand()*100)) % 2==0)
+					if(run_times % 2==0)
 					{
 						ReportData->LX = STICK_MAX;
 					}
@@ -580,7 +577,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 			{
 
 				// state = CLEANUP;
-
+				run_times++;
 				bufindex = 7;
 				duration_count = 0;
 
