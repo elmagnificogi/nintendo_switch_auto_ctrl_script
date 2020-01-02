@@ -29,7 +29,7 @@ typedef struct {
 	uint16_t duration;
 } command; 
 
-static const command step[] = {
+static const command loot_wat[] = {
 	// Setup controller
 	{ DELAY,    300 },
 	{ TRIGGERS,   5 },
@@ -41,7 +41,7 @@ static const command step[] = {
 
 	// loop wat
 	{ HOME,       5 }, // return home
-	{ DELAY,     20}, // 
+	{ DELAY,     20 }, // 
 	{ DOWN,       5 }, // 
 	{ RIGHT,     20 }, // select settings
 	{ A,          5 }, // enter settings
@@ -80,6 +80,30 @@ static const command step[] = {
 	
 };
 
+// start in game
+static const command save_game[] = {
+	// Setup controller
+	{ DELAY,    300 },
+	{ TRIGGERS,   5 },
+	{ DELAY,    150 },
+	{ TRIGGERS,   5 },
+	{ DELAY,    150 },
+	{ DELAY,      5 },
+	{ DELAY,      5 },
+	
+	// save
+	{ DELAY,	 10 },  // 	
+	{ X,          5 }, // enter option
+	{ DELAY,     60 },
+	{ R,		  5 }, // enter save
+	{ DELAY,	 80 },
+	{ A,		  5 }, // save
+	{ DELAY,	250 }  // 
+};
+
+
+static command * task = loot_wat;
+
 // Main entry point.
 int main(void) {
 	// We'll start by performing hardware and peripheral setup.
@@ -87,7 +111,7 @@ int main(void) {
 	
 	// We'll then enable global interrupts for our use.
 	GlobalInterruptEnable();
-	
+	task = loot_wat;
 	// Once that's done, we'll enter an infinite loop.
 	for (;;)
 	{
@@ -214,6 +238,9 @@ int ypos = 0;
 int bufindex = 0;
 int duration_count = 0;
 int portsval = 0;
+#define RUNTIMES 200
+int run_times = RUNTIMES;
+int step_nums = (int)( sizeof(loot_wat) / sizeof(loot_wat[0]) - 1);
 
 // Prepare the next report for the host.
 void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
@@ -240,33 +267,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 
 		case SYNC_CONTROLLER:
 			state = BREATHE;
-			break;
-
-		// case SYNC_CONTROLLER:
-		// 	if (report_count > 550)
-		// 	{
-		// 		report_count = 0;
-		// 		state = SYNC_POSITION;
-		// 	}
-		// 	else if (report_count == 250 || report_count == 300 || report_count == 325)
-		// 	{
-		// 		ReportData->Button |= SWITCH_L | SWITCH_R;
-		// 	}
-		// 	else if (report_count == 350 || report_count == 375 || report_count == 400)
-		// 	{
-		// 		ReportData->Button |= SWITCH_A;
-		// 	}
-		// 	else
-		// 	{
-		// 		ReportData->Button = 0;
-		// 		ReportData->LX = STICK_CENTER;
-		// 		ReportData->LY = STICK_CENTER;
-		// 		ReportData->RX = STICK_CENTER;
-		// 		ReportData->RY = STICK_CENTER;
-		// 		ReportData->HAT = HAT_CENTER;
-		// 	}
-		// 	report_count++;
-		// 	break;
+			break;		
 
 		case SYNC_POSITION:
 			bufindex = 0;
@@ -289,49 +290,69 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 
 		case PROCESS:
 
-			switch (step[bufindex].opt)
+			switch (task[bufindex].opt)
 			{
 
 				case UP:
-					ReportData->LY = STICK_MIN;				
+					ReportData->LY = STICK_MIN; 			
 					break;
-
+				
 				case LEFT:
-					ReportData->LX = STICK_MIN;				
+					ReportData->LX = STICK_MIN; 			
 					break;
-
+				
 				case DOWN:
-					ReportData->LY = STICK_MAX;				
+					ReportData->LY = STICK_MAX; 			
 					break;
-
+				
 				case RIGHT:
-					ReportData->LX = STICK_MAX;				
+					ReportData->LX = STICK_MAX; 			
 					break;
-
+				
 				case A:
 					ReportData->Button |= SWITCH_A;
 					break;
-
+				
 				case B:
 					ReportData->Button |= SWITCH_B;
 					break;
-
+				
+				case X:
+					ReportData->Button |= SWITCH_X;
+					break;
+				
+				case Y:
+					ReportData->Button |= SWITCH_Y;
+					break;
+				case L:
+					ReportData->Button |= SWITCH_L;
+					break;
+				
 				case R:
 					ReportData->Button |= SWITCH_R;
 					break;
-
+				
+				case plus:
+					ReportData->Button |= SWITCH_PLUS;
+					break;
+				
+				case minus:
+					ReportData->Button |= SWITCH_MINUS;
+					break;
+				
 				case HOME:
 					ReportData->Button |= SWITCH_HOME;
 					break;
-
+				
 				case THROW:
-					ReportData->LY = STICK_MIN;				
+					ReportData->LY = STICK_MIN; 			
 					ReportData->Button |= SWITCH_R;
 					break;
-
+				
 				case TRIGGERS:
 					ReportData->Button |= SWITCH_L | SWITCH_R;
 					break;
+
 
 				default:
 					ReportData->LX = STICK_CENTER;
@@ -344,20 +365,33 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 
 			duration_count++;
 
-			if (duration_count > step[bufindex].duration)
+			if (duration_count > task[bufindex].duration)
 			{
 				bufindex++;
 				duration_count = 0;				
 			}
 
 
-			if (bufindex > (int)( sizeof(step) / sizeof(step[0])) - 1)
+			if (bufindex > step_nums)
 			{
 
 				// state = CLEANUP;
 
 				bufindex = 7;
 				duration_count = 0;
+				run_times--;
+				if(run_times==1)
+				{
+					task = save_game;
+					step_nums = (int)( sizeof(save_game) / sizeof(save_game[0]) - 1);
+				}
+				if(run_times==0)
+				{
+					task = loot_wat;
+					run_times = RUNTIMES;
+					step_nums = (int)( sizeof(loot_wat) / sizeof(loot_wat[0]) - 1);
+				}
+
 
 				state = BREATHE;
 
@@ -365,11 +399,8 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				ReportData->LY = STICK_CENTER;
 				ReportData->RX = STICK_CENTER;
 				ReportData->RY = STICK_CENTER;
-				ReportData->HAT = HAT_CENTER;
+				ReportData->HAT = HAT_CENTER;				
 
-
-				// state = DONE;
-//				state = BREATHE;
 
 			}
 
@@ -388,11 +419,6 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 			#endif
 			return;
 	}
-
-	// // Inking
-	// if (state != SYNC_CONTROLLER && state != SYNC_POSITION)
-	// 	if (pgm_read_byte(&(image_data[(xpos / 8) + (ypos * 40)])) & 1 << (xpos % 8))
-	// 		ReportData->Button |= SWITCH_A;
 
 	// Prepare to echo this report
 	memcpy(&last_report, ReportData, sizeof(USB_JoystickReport_Input_t));
