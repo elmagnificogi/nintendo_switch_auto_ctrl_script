@@ -36,65 +36,36 @@ static const command step[] = {
 	{ DELAY,    150 },
 	{ TRIGGERS,      5 },
 	{ DELAY,    150 },
-	{ A,      5 },
+	{ DELAY,      5 },
 	{ DELAY,    250 },
 
-	// loop wat
-	{ A,          5 }, // enter cave
-	{ DELAY,     30 },
-	{ A,         10 }, // enter match
-	{ DELAY,    120 }, // 
-	{ HOME,       5 }, // return home
-	{ DELAY,     40 }, // 
-	{ DOWN,       5 }, // 
+	// auto get fossil 
+	{ A,          5 }, // enter dialogue
+	{ DELAY,    80 },
+	{ A,          5 }, // yes
+	{ DELAY,    80 }, // 
+	{ DOWN,       5 }, //select fish 
 	{ DELAY,      5 },
-	{ RIGHT,     20 }, // select settings
-	{ DELAY,      5 }, // 
-	{ A,          5 }, // enter settings
-	{ DELAY,     50 },
-	{ DOWN,      70 }, // select console
-	{ DELAY,      5 }, // 	
-	{ RIGHT,      5 }, // move to the tab 
-	{ DELAY,      5 },
-	{ DOWN,      20 }, // select date and time 
-	{ DELAY,      5 }, // 
-	{ A,          5 }, // enter change time
-	{ DELAY,     20 },
-	{ DOWN,      20 }, // selec cur time 
-	{ DELAY,      5 }, // 
-	{ A,          5 }, // enter change
-	{ DELAY,     50 },
-	//{ DOWN,       5 }, // 2018 
-	//{ DELAY,     20 }, // 
-	//{ RIGHT,     25 }, // select ok 
-	//{ DELAY,     30 },
-	//{ A,          5 }, // change
-	//{ DELAY,     20 }, // 
-	//{ A,          5 }, // enter change again
-	//{ DELAY,     30 },
-	//{ LEFT,      25 }, // select year 
-	//{ DELAY,     20 }, // 
-	{ UP,         5 }, // 2019  
-	{ DELAY,      5 },
-	{ RIGHT,     25 }, // select ok 
-	{ DELAY,      5 }, // 
-	{ A,          5 }, // complete change 
-	{ DELAY,     30 },
-	{ HOME,       5 }, // return home
-	{ DELAY,     20 }, // 
-	{ A,          5 }, // return game
-	{ DELAY,     30 },
-	{ B,          5 }, // quit?
-	{ DELAY,     50 }, // 
-	{ A,          5 }, // yes quit 
-	{ DELAY,    100 },
-	{ A,          5 }, // get wat 
-	{ DELAY,     30 },
-	{ A,          5 }, // quick dialogue
-	{ DELAY,     50 },	
-	{ A,          5 }, // got it 
-	{ DELAY,     50 }
-	
+	{ A,          5 }, // fish
+	{ DELAY,     80 }, // 
+	{ A,          5 }, // dragon
+	{ DELAY,     80 }, // 
+	{ A,          5 }, // yes
+	{ DELAY,     80 },
+	{ A,          5 }, // ok
+	{ DELAY,     180 }, // 
+	{ A,          5 }, // merge
+	{ DELAY,     100 },
+	{ A,          5 }, // sucess
+	{ DELAY,     80 }, // 	
+	{ A,          5 }, // close eyes
+	{ DELAY,     80 },
+	{ A,          5 }, // love it
+	{ DELAY,     220 }, // 
+	{ A,          5 }, // got it
+	{ DELAY,     100 },
+	{ A,          5 }, // add it
+	{ DELAY,     100 }
 };
 
 // Main entry point.
@@ -231,6 +202,7 @@ int ypos = 0;
 int bufindex = 0;
 int duration_count = 0;
 int portsval = 0;
+int run_times =748;
 
 // Prepare the next report for the host.
 void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
@@ -306,7 +278,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 
 		case PROCESS:
 
-			switch (step[bufindex].button)
+			switch (step[bufindex].opt)
 			{
 
 				case UP:
@@ -376,7 +348,10 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				bufindex = 7;
 				duration_count = 0;
 
-				state = BREATHE;
+				run_times--;
+				if(run_times==0)
+					{state=DONE;}else{
+				state = BREATHE;}
 
 				ReportData->LX = STICK_CENTER;
 				ReportData->LY = STICK_CENTER;
