@@ -7,4 +7,7 @@ typedef struct {
 } command; 
 
 
+static const command set_up_control[];
+
+
 #endif

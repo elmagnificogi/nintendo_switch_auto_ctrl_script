@@ -3,6 +3,7 @@ the file is the frame of auto script
 */
 
 #include "Joystick.h"
+#include "base_script"
 #include <math>
 
 typedef enum {
@@ -23,13 +24,18 @@ typedef enum {
 	DELAY,
 	TRIGGERS,
 	THROW,
-	RANDRD
+	RANDRU
 } options;
 
 typedef struct {
-	options opt;
-	uint16_t duration;
-} command; 
+	command *cur_cmd;
+	int cur_step;
+	int cur_run_times;
+	int step_num;
+	int run_times;
+	bool task_over;
+} task; 
+
 
 static const command step[] = {
 	// Setup controller
@@ -222,14 +228,12 @@ void HID_Task(void) {
 }
 
 typedef enum {
-	SYNC_CONTROLLER,
-	SYNC_POSITION,
-	BREATHE,
+	SETUP,
 	PROCESS,
-	CLEANUP,
+	PROCESS_DONE,
 	DONE
 } State_t;
-State_t state = SYNC_CONTROLLER;
+State_t state = PROCESS;
 
 #define ECHOES 2
 int echoes = 0;
@@ -242,9 +246,12 @@ int bufindex = 0;
 int duration_count = 0;
 int portsval = 0;
 int run_times = 0;
+task cur_task;
+
 
 // Prepare the next report for the host.
-void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
+void GetNextReport(USB_JoystickReport_Input_t* const ReportData) 
+{
 
 	// Prepare an empty report
 	memset(ReportData, 0, sizeof(USB_JoystickReport_Input_t));
@@ -265,33 +272,11 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 	// States and moves management
 	switch (state)
 	{
-
-		case SYNC_CONTROLLER:
-			state = BREATHE;
+		case SETUP:
 			break;
-
-		case SYNC_POSITION:
-			bufindex = 0;
-
-
-			ReportData->Button = 0;
-			ReportData->LX = STICK_CENTER;
-			ReportData->LY = STICK_CENTER;
-			ReportData->RX = STICK_CENTER;
-			ReportData->RY = STICK_CENTER;
-			ReportData->HAT = HAT_CENTER;
-
-
-			state = BREATHE;
-			break;
-
-		case BREATHE:
-			state = PROCESS;
-			break;
-
 		case PROCESS:
 
-			switch (step[bufindex].opt)
+			switch (cur_task.cur_cmd[cur_task.cur_step].opt)
 			{
 
 				case UP:
@@ -354,14 +339,15 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 					ReportData->Button |= SWITCH_L | SWITCH_R;
 					break;
 				
-				case RANDRD:
-					if(run_times % 2==0)
+				case RANDRU:
+					if(cur_task.cur_step % 2==0)
 					{
+						// right
 						ReportData->LX = STICK_MAX;
 					}
 					else
 					{
-					
+						// up
 						ReportData->LY = STICK_MIN;		
 					}
 					break;				
@@ -377,36 +363,34 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 
 			duration_count++;
 
-			if (duration_count > step[bufindex].duration)
+			if (duration_count > cur_task.cur_cmd[cur_task.cur_step].duration)
 			{
-				bufindex++;
+				cur_task.cur_step++;
 				duration_count = 0;				
 			}
 
 
-			if (bufindex > (int)( sizeof(step) / sizeof(step[0])) - 1)
+			if (cur_task.cur_step >= cur_task.step_num)
 			{
-
-				// state = CLEANUP;
-				run_times++;
-				bufindex = 7;
-				duration_count = 0;
-
-				state = BREATHE;
-
-				ReportData->LX = STICK_CENTER;
-				ReportData->LY = STICK_CENTER;
-				ReportData->RX = STICK_CENTER;
-				ReportData->RY = STICK_CENTER;
-				ReportData->HAT = HAT_CENTER;
+				cur_task.cur_step = 0;
+				cur_task.cur_run_times++;
+				if(cur_task.cur_run_times>=cur_task.run_times)
+				{
+					state = PROCESS_DONE;
+				}
 			}
 
 			break;
-
-		case CLEANUP:
-			state = DONE;
+			
+		case PROCESS_DONE:
+			cur_task.task_over = true;
+			ReportData->LX = STICK_CENTER;
+			ReportData->LY = STICK_CENTER;
+			ReportData->RX = STICK_CENTER;
+			ReportData->RY = STICK_CENTER;
+			ReportData->HAT = HAT_CENTER;
 			break;
-
+		
 		case DONE:
 			#ifdef ALERT_WHEN_DONE
 			portsval = ~portsval;
