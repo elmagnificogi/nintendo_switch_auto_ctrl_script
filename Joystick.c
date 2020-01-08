@@ -36,75 +36,541 @@ static const command step[] = {
 	{ DELAY,    500 },
 	{ TRIGGERS,   5 },
 	{ DELAY,    150 },
-	{ TRIGGERS,   5 },
+	{ DELAY,   5 },
 	{ DELAY,    150 },
 	{ DELAY,      5 },
 	{ DELAY,    250 },
 
 	// enter game
 	{ A,          5 }, // enter game
-	{ DELAY,     50 },
-	{ A,         10 }, // enter user
-	{ DELAY,    400 }, // 
-	{ TRIGGERS,   5 },
-	{ DELAY,    150 },	
-	{ TRIGGERS,   5 },
-	{ DELAY,	150 },
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
 	{ A,		  5 }, // game in
-	{ DELAY,	500 }, // 
-
-	// share 
-	{ Y,          5 }, // enter Y
-	{ DELAY,     50 },
-	{ plus,       5 }, // connect
-	{ DELAY,   1200 }, // 
-	{ A,          5 }, // confirm
-	{ DELAY,    100 }, // 
-	{ B,		  5 }, // return game
-	{ DELAY,	 50 }, // 
-
-	{ A,          5 }, // confirm
-	{ DELAY,    800 },		
-
-	{ plus,       5 }, // set password
-	{ DELAY,	 50 }, // 
-	{ A,		  5 }, // enter 1
-	{ DELAY,	  5 },
-	{ A,		  5 }, // enter 1
-	{ DELAY,	  5 },
-	{ A,		  5 }, // enter 1
-	{ DELAY,	  5 },
-	{ RANDRD,     3 }, //random opt in right and down
-	{ DELAY,	  5 },
-	{ A,		  5 }, // enter 1
-	{ DELAY,	  5 },
-	{ plus, 	  5 }, // confirm
 	{ DELAY,	100 }, // 
-	{ A,		  5 }, // use the password? yes
-	{ DELAY,	300 },
-	{ A,		  5 }, // enter match
-	{ DELAY,   1800 },
-	{ UP,         5 }, // 
-	{ DELAY,   3000 },
-	{ A,          5 }, // ready 
-	{ DELAY,     50 },
-	{ A,          5 }, // start
-	{ DELAY,     50 },
-	{ A,          5 }, // not enough?
-	{ DELAY,     50 },
-	{ A,          5 }, // sure to start?
-	{ DELAY,     50 },
-	{ A,          5 }, // yes
-	{ DELAY,     50 },	
-	{ A,		  5 }, // yes
-	{ DELAY,   1200 },
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },	
 	
-	{ HOME, 	  5 }, // return home
-	{ DELAY,	 40 }, // 
-	{ X, 	      5 }, // close game?
-	{ DELAY,	 30 },
-	{ A,	     20 }, // yes
-	{ DELAY,	400 } // 	
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },	
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ LEFT,     28 }, // enter Y
+	{ DELAY,      5 },	
+	{ DOWN,	  5 }, // enter Y
+	{ DELAY,	  5 },
+
+	// enter game
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },	
+	
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },	
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ LEFT,     28 }, // enter Y
+	{ DELAY,      5 },	
+	{ DOWN,	  5 }, // enter Y
+	{ DELAY,	  5 },
+
+
+
+	// enter game
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },	
+	
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },	
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ LEFT,     28 }, // enter Y
+	{ DELAY,      5 },	
+	{ DOWN,	  5 }, // enter Y
+	{ DELAY,	  5 },
+
+
+
+	// enter game
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },	
+	
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },	
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+	{ LEFT,     28 }, // enter Y
+	{ DELAY,      5 },	
+	{ DOWN,	  5 }, // enter Y
+	{ DELAY,	  5 },
+
+
+
+	// enter game
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },	
+	
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+
+	{ RIGHT,      5 }, // enter Y
+	{ DELAY,      5 },	
+
+	{ A,          5 }, // enter game
+	{ DELAY,     55 },
+	{ UP,        13 }, // enter user
+	{ DELAY,      5 }, // 
+	{ A,          5 },
+	{ DELAY,     40 },	
+	{ UP,         7 },
+	{ DELAY,	  5 },
+	{ A,		  5 }, // game in
+	{ DELAY,	100 }, // 
+	{ A,		  5 }, // game in
+	{ DELAY,	 15 },
+
+	{ LEFT,      28 }, // enter Y
+	{ DELAY,      5 },	
+	{ UP,	     23 }, // enter Y
+	{ DELAY,	  5 },	
+	{ R,	      5 }, // enter Y
+	{ DELAY,	  15 }
+
+	
 };
 
 // Main entry point.
