@@ -3,20 +3,8 @@ this file is a set of short script,i use them as the base of long script
 */
 #include "base_script.h"
 
-
-static const command set_up_control[] = {
-	// Setup controller
-	{ DELAY,    500 },
-	{ TRIGGERS,   5 },
-	{ DELAY,    150 },
-	{ TRIGGERS,   5 },
-	{ DELAY,    150 },
-	{ DELAY,      5 },
-	{ DELAY,    250 }
-};
-
 // start at main UI focus on game
-static const command enter_game[] = {
+const command enter_game[] = {
 	// enter game
 	{ A,          5 }, // enter game
 	{ DELAY,     50 },
@@ -32,7 +20,7 @@ static const command enter_game[] = {
 
 
 // start at game ui main
-static const command connet_net[] = {
+const command connet_net[] = {
 	{ Y,          5 }, // enter Y
 	{ DELAY,     50 },
 	{ plus,       5 }, // connect
@@ -42,7 +30,7 @@ static const command connet_net[] = {
 };
 
 // start at raid UI
-static const command rand_password[] = {
+const command rand_password[] = {
 	{ plus,       5 }, // set password
 	{ DELAY,	 50 }, // 
 	{ A,		  5 }, // enter 1
@@ -63,7 +51,7 @@ static const command rand_password[] = {
 
 
 // start at in game
-static const command close_game[] = {
+const command close_game[] = {
 	{ HOME, 	  5 }, // return home
 	{ DELAY,	 40 }, // 
 	{ X, 	      5 }, // close game?
@@ -74,7 +62,7 @@ static const command close_game[] = {
 
 
 // start in game 
-static const command goto_time_settings[] = {
+const command goto_time_settings[] = {
 	// change time
 	{ HOME,       5 }, // return home
 	{ DELAY,    100 }, // 
@@ -100,7 +88,7 @@ static const command goto_time_settings[] = {
 
 
 // start in game 
-static const command change_day_first_time[] = {
+const command change_day_first_time[] = {
 	{ RIGHT,	 15 }, // select day	
 	{ DELAY,	  5 },
 	{ UP,         5 }, // +1  
@@ -112,7 +100,7 @@ static const command change_day_first_time[] = {
 }
 
 // use for loop  start in time settings 
-static const command change_time[] = {
+const command change_time[] = {
 	{ A,          5 }, 
 	{ DELAY,      8 },
 	{ LEFT,      17 }, // select day 
@@ -126,7 +114,7 @@ static const command change_time[] = {
 }
 
 // start in game
-static const command save_game[] = {
+const command save_game[] = {
 	// save
 	{ X,          5 }, // enter option
 	{ DELAY,     80 },

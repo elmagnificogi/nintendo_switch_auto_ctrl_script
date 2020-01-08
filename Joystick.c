@@ -3,29 +3,7 @@ the file is the frame of auto script
 */
 
 #include "Joystick.h"
-#include "base_script"
-#include <math>
-
-typedef enum {
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT,
-	X,
-	Y,
-	A,
-	B,
-	L,
-	R,
-	plus,
-	minus,
-	HOME,
-	CAPTURE,
-	DELAY,
-	TRIGGERS,
-	THROW,
-	RANDRU
-} options;
+#include "script/base_script.h"
 
 typedef struct {
 	command *cur_cmd;
@@ -36,94 +14,47 @@ typedef struct {
 	bool task_over;
 } task; 
 
+task cur_task;
 
-static const command step[] = {
-	// Setup controller
-	{ DELAY,    500 },
-	{ TRIGGERS,   5 },
-	{ DELAY,    150 },
-	{ TRIGGERS,   5 },
-	{ DELAY,    150 },
-	{ DELAY,      5 },
-	{ DELAY,    250 },
+typedef enum {
+	SETUP_DONE,
+	PROCESS,
+	PROCESS_DONE,
+	DONE
+} State_t;
+State_t state = PROCESS;
 
-	// enter game
-	{ A,          5 }, // enter game
-	{ DELAY,     50 },
-	{ A,         10 }, // enter user
-	{ DELAY,    400 }, // 
-	{ TRIGGERS,   5 },
-	{ DELAY,    150 },	
-	{ TRIGGERS,   5 },
-	{ DELAY,	150 },
-	{ A,		  5 }, // game in
-	{ DELAY,	500 }, // 
-
-	// share 
-	{ Y,          5 }, // enter Y
-	{ DELAY,     50 },
-	{ plus,       5 }, // connect
-	{ DELAY,   1200 }, // 
-	{ A,          5 }, // confirm
-	{ DELAY,    100 }, // 
-	{ B,		  5 }, // return game
-	{ DELAY,	 50 }, // 
-
-	{ A,          5 }, // confirm
-	{ DELAY,    800 },		
-
-	{ plus,       5 }, // set password
-	{ DELAY,	 50 }, // 
-	{ A,		  5 }, // enter 1
-	{ DELAY,	  5 },
-	{ A,		  5 }, // enter 1
-	{ DELAY,	  5 },
-	{ A,		  5 }, // enter 1
-	{ DELAY,	  5 },
-	{ RANDRD,     3 }, //random opt in right and down
-	{ DELAY,	  5 },
-	{ A,		  5 }, // enter 1
-	{ DELAY,	  5 },
-	{ plus, 	  5 }, // confirm
-	{ DELAY,	100 }, // 
-	{ A,		  5 }, // use the password? yes
-	{ DELAY,	300 },
-	{ A,		  5 }, // enter match
-	{ DELAY,   1800 },
-	{ UP,         5 }, // 
-	{ DELAY,   3000 },
-	{ A,          5 }, // ready 
-	{ DELAY,     50 },
-	{ A,          5 }, // start
-	{ DELAY,     50 },
-	{ A,          5 }, // not enough?
-	{ DELAY,     50 },
-	{ A,          5 }, // sure to start?
-	{ DELAY,     50 },
-	{ A,          5 }, // yes
-	{ DELAY,     50 },	
-	{ A,		  5 }, // yes
-	{ DELAY,   1200 },
-	
-	{ HOME, 	  5 }, // return home
-	{ DELAY,	 40 }, // 
-	{ X, 	      5 }, // close game?
-	{ DELAY,	 30 },
-	{ A,	     20 }, // yes
-	{ DELAY,	400 } // 	
-};
 
 // Main entry point.
 int main(void) {
+	bool loop_start = false;
 	// We'll start by performing hardware and peripheral setup.
 	SetupHardware();
 	
 	// We'll then enable global interrupts for our use.
 	GlobalInterruptEnable();
+
+	// init the task for setup control
+	cur_task.cur_cmd = set_up_control;
+	cur_task.step_num = sizeof(set_up_control)/sizeof(set_up_control[0]);
+	cur_task.task_over = false;
+	cur_task.run_times = 1;
+	cur_task.cur_step = 0;
+	cur_task.cur_run_times = 0;
 	
 	// Once that's done, we'll enter an infinite loop.
 	for (;;)
 	{
+		if(state == SETUP_DONE)
+		{
+			//do our task init
+			loop_start=true;
+		}else if(cur_task.task_over && loop_start)
+		{
+			// do our task loop
+			
+		}
+	
 		// We need to run our task to process and deliver data for our IN and OUT endpoints.
 		HID_Task();
 		
@@ -227,13 +158,7 @@ void HID_Task(void) {
 	}
 }
 
-typedef enum {
-	SETUP,
-	PROCESS,
-	PROCESS_DONE,
-	DONE
-} State_t;
-State_t state = PROCESS;
+
 
 #define ECHOES 2
 int echoes = 0;
@@ -246,7 +171,7 @@ int bufindex = 0;
 int duration_count = 0;
 int portsval = 0;
 int run_times = 0;
-task cur_task;
+
 
 
 // Prepare the next report for the host.
@@ -272,7 +197,13 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData)
 	// States and moves management
 	switch (state)
 	{
-		case SETUP:
+		case SETUP_DONE:
+			cur_task.task_over = true;
+			ReportData->LX = STICK_CENTER;
+			ReportData->LY = STICK_CENTER;
+			ReportData->RX = STICK_CENTER;
+			ReportData->RY = STICK_CENTER;
+			ReportData->HAT = HAT_CENTER;
 			break;
 		case PROCESS:
 
@@ -377,6 +308,11 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData)
 				if(cur_task.cur_run_times>=cur_task.run_times)
 				{
 					state = PROCESS_DONE;
+				}
+
+				if(cur_task.cur_cmd==set_up_control)
+				{
+					state = SETUP_DONE;
 				}
 			}
 
