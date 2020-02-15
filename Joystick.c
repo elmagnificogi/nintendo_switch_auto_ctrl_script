@@ -43,7 +43,7 @@ static const command step[] = {
 	{ DELAY,    10 },
 	
 	{ A,         11}, 
-	{ DELAY,     8 },
+	{ DELAY,     9 },
 	{ LEFT,      5 }, 
 	{ B_LEFT, 	 5 }, 
 	{ LEFT,      5 }, 
@@ -52,7 +52,7 @@ static const command step[] = {
 	{ A,         5 },
 	{ RIGHT,     5 }, 
 	{ A,         11}, 
-	{ DELAY,     8 }, 
+	{ DELAY,     9 }, 
 
 };
 
@@ -373,7 +373,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				bufindex = 7;
 				duration_count = 0;
 
-				state = BREATHE;
+				state = PROCESS;
 
 				ReportData->LX = STICK_CENTER;
 				ReportData->LY = STICK_CENTER;
