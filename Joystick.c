@@ -42,19 +42,17 @@ static const command step[] = {
 	{ DELAY,    10 },
 	{ DELAY,    10 },
 	
-	{ A,         11}, // 1  
+	{ A,         11}, 
 	{ DELAY,     8 },
-	{ LEFT,      5 }, // select ok 
-	{ DELAY,     3 }, // complete change 
-	{ LEFT, 	 5 }, // select ok 
-	{ DELAY,     3 }, // complete change 
-	{ LEFT,      5 }, // select ok 
-	{ UP,        5 }, // 1  
-	{ RIGHT,     5 }, // select ok 
+	{ LEFT,      5 }, 
+	{ B_LEFT, 	 5 }, 
+	{ LEFT,      5 }, 
+	{ UP,        5 }, 
+	{ RIGHT,     5 }, 
 	{ A,         5 },
-	{ RIGHT,     5 }, // select ok 
-	{ A,         11}, // complete change 
-	{ DELAY,     8 }, // complete change 
+	{ RIGHT,     5 }, 
+	{ A,         11}, 
+	{ DELAY,     8 }, 
 
 };
 
@@ -100,6 +98,7 @@ void SetupHardware(void) {
 	
 	// The USB stack should be initialized last.
 	USB_Init();
+	Serial_Init(9600, false);
 }
 
 // Fired to indicate that the device is enumerating.
@@ -289,7 +288,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				break;
 
 			case B_LEFT:
-				ReportData->HAT |= HAT_LEFT;
+				ReportData->HAT = HAT_LEFT;
 				break;
 				
 			case A:
