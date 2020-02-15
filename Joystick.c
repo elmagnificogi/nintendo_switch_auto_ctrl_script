@@ -98,7 +98,6 @@ void SetupHardware(void) {
 	
 	// The USB stack should be initialized last.
 	USB_Init();
-	Serial_Init(9600, false);
 }
 
 // Fired to indicate that the device is enumerating.
