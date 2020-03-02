@@ -56,8 +56,14 @@ static const command step[] = {
 
 };
 
+
+int frames_you_want_consume = 10000;
+int run_times = 0;
+
 // Main entry point.
 int main(void) {
+	run_times = ((int)(frames_you_want_consume/30))*31+frames_you_want_consume%30;
+
 	// We'll start by performing hardware and peripheral setup.
 	SetupHardware();
 	
@@ -191,7 +197,7 @@ int ypos = 0;
 int bufindex = 0;
 int duration_count = 0;
 int portsval = 0;
-int run_times = 5000;
+
 
 // Prepare the next report for the host.
 void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
